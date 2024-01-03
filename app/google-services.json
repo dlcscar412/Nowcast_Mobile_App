@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "43911296328",
+    "project_id": "nowcast-d0a6a",
+    "storage_bucket": "nowcast-d0a6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43911296328:android:846ee4a7cd32b0d2d5ef7d",
+        "android_client_info": {
+          "package_name": "com.example.nowcast"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2rwN5-3iG9sjpMzoxnlbCTKxbYstBtAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
