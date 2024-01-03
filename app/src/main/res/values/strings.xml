@@ -2,4 +2,5 @@
 <resources>
 	<string name="app_name">RainCheck</string>
 	<string name="hello_world">Hello World!</string>
+	<string name="search_text">Hello World!</string>
 </resources>

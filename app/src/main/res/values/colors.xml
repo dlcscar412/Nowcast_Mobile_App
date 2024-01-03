@@ -5,25 +5,10 @@
 	<color name="colorPrimary">#008577</color>
 	<color name="colorPrimaryDark">#00574B</color>
 	<color name="colorAccent">#D81B60</color>
-	<color name="purple_200">#FFBB86FC</color>
-	<color name="purple_500">#FF6200EE</color>
-	<color name="purple_700">#FF3700B3</color>
-	<color name="teal_200">#FF03DAC5</color>
-	<color name="teal_700">#FF018786</color>
 	<color name="black">#FF000000</color>
 	<color name="white">#FFFFFFFF</color>
 
-	<color name="_bg__mobile_app_untracked_color">#FFFFFF</color>
-	<color name="rectangle_7_color">#23517C</color>
-	<color name="_bg__group_5_ek1_color">#000000</color>
-	<color name="ellipse_9_color">#1D5181</color>
-	<color name="ellipse_7_color">#1C578D</color>
-	<color name="ellipse_12_color">#104C83</color>
-	<color name="ellipse_5_color">#175894</color>
-	<color name="ellipse_6_color">#1F578A</color>
-	<color name="ellipse_8_color">#205281</color>
-	<color name="ellipse_10_color">#184F81</color>
-	<color name="__41_lorem_st___barangay_ipsum__dolor_city_color">#7E7878</color>
-	<color name="rectangle_8_ek3_color">#379F07</color>
-	<color name="bg_color">#222227</color>
+	<color name="bg_color_blue">#185995</color>
+	<color name="button_color">#389F07</color>
+
 </resources>

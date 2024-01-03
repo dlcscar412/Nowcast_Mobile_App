@@ -1,6 +1,7 @@
 package com.example.nowcast
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -20,10 +21,14 @@ import com.google.firebase.database.FirebaseDatabase
 import android.content.SharedPreferences;
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startBtn: Button
-    private lateinit var idEditText: EditText
+    private lateinit var idEditText: TextInputEditText
+    private lateinit var idTrackingText: TextView
     private var locationUpdatesEnabled = false
 
     private lateinit var databaseReference: DatabaseReference
@@ -63,9 +68,11 @@ class MainActivity : AppCompatActivity() {
         locationUpdatesEnabled = false
 
         startBtn = findViewById(R.id.btn_start)
-        startBtn.isEnabled = false
         idEditText = findViewById(R.id.editTextId)
+        idTrackingText = findViewById(R.id.trackingTextId)
 
+        startBtn.isEnabled = false
+        idTrackingText.visibility = View.GONE
         idEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -93,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun getLocationUpdates() {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -104,15 +112,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun startLocationUpdates() {
         locationUpdatesEnabled = true
-        startBtn.text = "Stop Location Updates"
+        startBtn.text = "Disable Tracking"
         getLocationUpdates()
         idEditText.isEnabled = false
+        idTrackingText.visibility = View.VISIBLE
     }
 
     private fun stopLocationUpdates() {
         locationUpdatesEnabled = false
-        startBtn.text = "Start Location Updates"
+        startBtn.text = "Enable Tracking"
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         idEditText.isEnabled = true
+        idTrackingText.visibility = View.GONE
     }
 }
