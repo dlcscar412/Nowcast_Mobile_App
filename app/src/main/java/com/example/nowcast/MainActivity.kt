@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
     private fun getLocationUpdates() {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 60000 // Update location every 1 minute
+            interval = 30000 // Update location every 30 seconds
         }
         MySharedPreferences.saveData(this, "username", nameEditText.text.toString())
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
