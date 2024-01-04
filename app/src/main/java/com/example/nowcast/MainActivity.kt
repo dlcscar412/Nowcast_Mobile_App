@@ -41,21 +41,21 @@ class MainActivity : AppCompatActivity() {
                 // Handle the location update
                 val latitude = location.latitude
                 val longitude = location.longitude
-                val idText = nameEditText.text.toString()
+                val name = nameEditText.text.toString()
                 val timestamp = System.currentTimeMillis()
                 // Do something with the coordinates
 
                 // For demonstration purposes, you can log the coordinates
                 Log.d("Location: ", "$latitude , $longitude")
-                Log.d("ID: ", "$idText")
+                Log.d("ID: ", "$name")
 
                 val locationData = mapOf(
                     "latitude" to latitude,
                     "longitude" to longitude,
                     "timestamp" to timestamp,
-                    "name" to idText
+                    "name" to name
                 )
-                postHTTPRequest(latitude, longitude, idText)
+                postHTTPRequest(latitude, longitude, name)
 //                databaseReference.child("$idText").child("$timestamp").setValue(locationData)
             }
         }
@@ -133,9 +133,9 @@ class MainActivity : AppCompatActivity() {
         idOrderText.text = "Input the driver name in the text box."
     }
 
-    private fun postHTTPRequest(lat: Double, lon: Double, order_id: String){
+    private fun postHTTPRequest(lat: Double, lon: Double, driver_name: String){
         val volleyQueue = Volley.newRequestQueue(this)
-        var url = BASE_URL+"enqueue?lat=$lat&lon=$lon&order_id=$order_id"
+        var url = BASE_URL+"enqueue?lat=$lat&lon=$lon&driver_name=$driver_name"
         Log.d("URL: ", url)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url,null,
             { response ->
