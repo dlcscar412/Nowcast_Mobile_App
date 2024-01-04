@@ -40,49 +40,63 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/nameTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Hello, Juan!"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="32dp" />
+        <TextView
+            android:id="@+id/orderTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTextId"
+            android:layout_marginLeft="9dp"
+            android:text="Input the Order ID in the text box."
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:padding="20dp">
         <TextView
             android:id="@+id/inputId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="INPUT ID"
+            android:text="INPUT ORDER ID:"
             android:textColor="@color/white"
             android:textSize="20dp" />
-        <com.google.android.material.textfield.TextInputLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/inputId">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextId"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/inputId"
+            app:cardCornerRadius="12dp">
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:textSize="32dp"
-                android:inputType="textPersonName"
-                android:text="Text"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:background="@color/white"
-                android:layout_centerHorizontal="true"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="bottom"
-        android:padding="10dp">
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/trackingTextId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Tracking Enabled"
-            android:textColor="@color/white"
-            android:textSize="32dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextId"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:textSize="32dp"
+                    android:inputType="textPersonName"
+                    android:text="Text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:layout_centerHorizontal="true"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,37 +1,37 @@
 package com.example.nowcast
 
-import android.Manifest
+import MySharedPreferences
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationRequest
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import android.content.SharedPreferences;
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
+import android.util.Log
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.gms.location.*
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.sql.Timestamp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startBtn: Button
     private lateinit var idEditText: TextInputEditText
-    private lateinit var idTrackingText: TextView
+    private lateinit var idNameText: TextView
+    private lateinit var idOrderText: TextView
+
     private var locationUpdatesEnabled = false
 
-    private lateinit var databaseReference: DatabaseReference
+//    private lateinit var databaseReference: DatabaseReference
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var locationCallback: LocationCallback = object : LocationCallback() {
@@ -55,24 +55,29 @@ class MainActivity : AppCompatActivity() {
                     "timestamp" to timestamp,
                     "id" to idText
                 )
-                databaseReference.child("$idText").child("$timestamp").setValue(locationData)
+                postHTTPRequest(latitude, longitude, idText)
+//                databaseReference.child("$idText").child("$timestamp").setValue(locationData)
             }
         }
     }
 
+    private var BASE_URL = "https://raincheck-drivers.onrender.com/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        databaseReference = FirebaseDatabase.getInstance().getReference("users")
+//        databaseReference = FirebaseDatabase.getInstance().getReference("users")
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         locationUpdatesEnabled = false
 
         startBtn = findViewById(R.id.btn_start)
         idEditText = findViewById(R.id.editTextId)
-        idTrackingText = findViewById(R.id.trackingTextId)
+        idNameText = findViewById(R.id.nameTextId)
+        idOrderText = findViewById(R.id.orderTextId)
 
         startBtn.isEnabled = false
-        idTrackingText.visibility = View.GONE
+        idNameText.text = "Hello, Juan!"
+        idOrderText.text = "Input the Order ID in the text box."
         idEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -115,7 +120,8 @@ class MainActivity : AppCompatActivity() {
         startBtn.text = "Disable Tracking"
         getLocationUpdates()
         idEditText.isEnabled = false
-        idTrackingText.visibility = View.VISIBLE
+        idNameText.text = "Tracking Enabled!"
+        idOrderText.text = "Click Disable Tracking once order is completed."
     }
 
     private fun stopLocationUpdates() {
@@ -123,6 +129,27 @@ class MainActivity : AppCompatActivity() {
         startBtn.text = "Enable Tracking"
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         idEditText.isEnabled = true
-        idTrackingText.visibility = View.GONE
+        idNameText.text = "Hello, Juan!"
+        idOrderText.text = "Input the Order ID in the text box."
+    }
+
+    private fun postHTTPRequest(lat: Double, lon: Double, order_id: String){
+        val volleyQueue = Volley.newRequestQueue(this)
+        var url = BASE_URL+"enqueue?lat=$lat&lon=$lon&order_id=$order_id"
+        Log.d("URL: ", url)
+        val jsonObjectRequest = JsonObjectRequest(Request.Method.POST, url,null,
+            { response ->
+                Log.d("MainActivity", "Request Sent: ${response.toString()}")
+            },
+            { error ->
+                // make a Toast telling the user
+                // that something went wrong
+                Toast.makeText(this, "Some error occurred! Cannot send gps location", Toast.LENGTH_LONG).show()
+                // log the error message in the error stream
+                Log.e("MainActivity", "postHTTPRequest error: ${error.localizedMessage}")
+            }
+        )
+        volleyQueue.add(jsonObjectRequest)
     }
 }
+
