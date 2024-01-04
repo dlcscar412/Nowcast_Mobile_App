@@ -25,7 +25,7 @@ import java.sql.Timestamp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var startBtn: Button
-    private lateinit var idEditText: TextInputEditText
+    private lateinit var nameEditText: TextInputEditText
     private lateinit var idNameText: TextView
     private lateinit var idOrderText: TextView
 
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 // Handle the location update
                 val latitude = location.latitude
                 val longitude = location.longitude
-                val idText = idEditText.text.toString()
+                val idText = nameEditText.text.toString()
                 val timestamp = System.currentTimeMillis()
                 // Do something with the coordinates
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     "latitude" to latitude,
                     "longitude" to longitude,
                     "timestamp" to timestamp,
-                    "id" to idText
+                    "name" to idText
                 )
                 postHTTPRequest(latitude, longitude, idText)
 //                databaseReference.child("$idText").child("$timestamp").setValue(locationData)
@@ -71,14 +71,14 @@ class MainActivity : AppCompatActivity() {
         locationUpdatesEnabled = false
 
         startBtn = findViewById(R.id.btn_start)
-        idEditText = findViewById(R.id.editTextId)
+        nameEditText = findViewById(R.id.editTextName)
         idNameText = findViewById(R.id.nameTextId)
         idOrderText = findViewById(R.id.orderTextId)
 
         startBtn.isEnabled = false
         idNameText.text = "Hello, Juan!"
-        idOrderText.text = "Input the Order ID in the text box."
-        idEditText.addTextChangedListener(object : TextWatcher {
+        idOrderText.text = "Input the driver name in the text box."
+        nameEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 startBtn.isEnabled = !editable.isNullOrBlank()
             }
         })
-        idEditText.setText(MySharedPreferences.loadData(this, "username"))
+        nameEditText.setText(MySharedPreferences.loadData(this, "username"))
         startBtn.setOnClickListener {
             if (locationUpdatesEnabled) {
                 stopLocationUpdates()
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
             interval = 60000 // Update location every 1 minute
         }
-        MySharedPreferences.saveData(this, "username", idEditText.text.toString())
+        MySharedPreferences.saveData(this, "username", nameEditText.text.toString())
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         locationUpdatesEnabled = true
         startBtn.text = "Disable Tracking"
         getLocationUpdates()
-        idEditText.isEnabled = false
+        nameEditText.isEnabled = false
         idNameText.text = "Tracking Enabled!"
         idOrderText.text = "Click Disable Tracking once order is completed."
     }
@@ -128,9 +128,9 @@ class MainActivity : AppCompatActivity() {
         locationUpdatesEnabled = false
         startBtn.text = "Enable Tracking"
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-        idEditText.isEnabled = true
+        nameEditText.isEnabled = true
         idNameText.text = "Hello, Juan!"
-        idOrderText.text = "Input the Order ID in the text box."
+        idOrderText.text = "Input the driver name in the text box."
     }
 
     private fun postHTTPRequest(lat: Double, lon: Double, order_id: String){

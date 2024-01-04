@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/nameTextId"
             android:layout_marginLeft="9dp"
-            android:text="Input the Order ID in the text box."
+            android:text="Input the driver name in the text box."
             android:textColor="@color/white"
             android:textSize="16dp" />
 
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="INPUT ORDER ID:"
+            android:text="INPUT DRIVER NAME:"
             android:textColor="@color/white"
             android:textSize="20dp" />
         <androidx.cardview.widget.CardView
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextId"
+                    android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:textSize="32dp"
